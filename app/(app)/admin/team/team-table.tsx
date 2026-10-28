@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { NativeSelect } from "@/components/native-select";
+
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -26,9 +28,6 @@ export type Member = {
   pending: boolean;
   openTasks: number;
 };
-
-const selectClass =
-  "h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs";
 
 export function TeamTable({
   members,
@@ -210,15 +209,15 @@ export function TeamTable({
             </div>
             <div className="space-y-2">
               <Label htmlFor="role">Role</Label>
-              <select
+              <NativeSelect
                 id="role"
                 name="role"
-                className={selectClass}
+
                 defaultValue={editing?.role ?? "MEMBER"}
               >
                 <option value="MEMBER">Member</option>
                 <option value="ADMIN">Admin</option>
-              </select>
+              </NativeSelect>
             </div>
             <DialogFooter>
               <Button type="submit" disabled={pending}>

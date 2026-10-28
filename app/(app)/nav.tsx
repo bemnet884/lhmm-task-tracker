@@ -26,7 +26,13 @@ function useIsActive() {
   return (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function SidebarNav({ links }: { links: NavLink[] }) {
+export function SidebarNav({
+  links,
+  collapsed = false,
+}: {
+  links: NavLink[];
+  collapsed?: boolean;
+}) {
   const isActive = useIsActive();
   return (
     <nav className="space-y-1 text-sm">
@@ -37,13 +43,15 @@ export function SidebarNav({ links }: { links: NavLink[] }) {
           <Link
             key={l.href}
             href={l.href}
-            className={`flex items-center gap-2.5 rounded-md px-3 py-2 transition-colors ${active
-              ? "bg-primary/10 font-medium text-primary"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            title={collapsed ? l.label : undefined}
+            className={`flex items-center rounded-lg py-2.5 transition-colors ${collapsed ? "justify-center px-0" : "gap-2.5 px-3"
+              } ${active
+                ? "bg-primary/10 font-medium text-primary"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
           >
-            <Icon className="h-4 w-4" />
-            {l.label}
+            <Icon className="h-[18px] w-[18px] shrink-0" />
+            {!collapsed && l.label}
           </Link>
         );
       })}

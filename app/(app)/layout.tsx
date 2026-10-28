@@ -4,9 +4,9 @@ import { requireUser } from "@/lib/session";
 import { relativeTime } from "@/lib/dates";
 import { initials } from "@/lib/initials";
 import { Logo } from "@/components/logo";
-import { BottomNav, SidebarNav, type NavLink } from "./nav";
+import { BottomNav, type NavLink } from "./nav";
 import { NotificationSheet, type NotificationView } from "./notification-sheet";
-import { SignOutButton } from "./sign-out-button";
+import { Sidebar } from "./sidebar";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await requireUser();
@@ -38,33 +38,35 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       : []),
   ];
 
+  const userInitials = initials(user.name);
+
   return (
-    <div className="flex min-h-dvh">
-      <aside className="hidden w-56 shrink-0 border-r p-4 md:block">
-        <Logo className="mb-6" />
-        <SidebarNav links={links} />
-      </aside>
+    <div className="flex min-h-dvh bg-background">
+      <Sidebar
+        links={links}
+        user={{
+          name: user.name,
+          role: user.role === "ADMIN" ? "Admin" : "Member",
+          initials: userInitials,
+        }}
+        bell={<NotificationSheet count={unread} items={items} />}
+      />
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur md:px-6">
-          <Logo className="md:hidden" text={false} />
-          <div className="ml-auto flex items-center gap-2">
+        {/* mobile-only top bar; on desktop everything lives in the sidebar */}
+        <header className="sticky top-0 z-10 flex h-14 items-center justify-between bg-background/80 px-4 backdrop-blur md:hidden">
+          <Logo />
+          <div className="flex items-center gap-1">
             <NotificationSheet count={unread} items={items} />
-            <Link
-              href="/profile"
-              className="flex items-center gap-2 rounded-md px-2 py-1 text-sm hover:bg-muted"
-            >
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground">
-                {initials(user.name)}
+            <Link href="/profile" aria-label="Profile">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground">
+                {userInitials}
               </span>
-              <span className="hidden md:inline">{user.name}</span>
             </Link>
-            <SignOutButton className="hidden md:inline-flex" />
           </div>
         </header>
 
-        {/* bottom padding leaves room for the mobile tab bar */}
-        <main className="flex-1 p-4 pb-24 md:p-6 md:pb-6">{children}</main>
+        <main className="flex-1 p-4 pb-24 md:p-8">{children}</main>
       </div>
 
       <BottomNav links={links} />

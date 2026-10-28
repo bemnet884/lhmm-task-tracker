@@ -12,9 +12,7 @@ import {
 import { CATEGORIES, PRIORITIES, STATUSES } from "@/lib/task-constants";
 import { createTask, updateTask, deleteTask } from "../tasks/actions";
 import type { BoardTask, PickerUser } from "./week-board";
-
-const selectClass =
-  "h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs";
+import { NativeSelect } from "@/components/native-select";
 
 export function TaskDialog({
   open, onOpenChange, task, defaultDue, users,
@@ -96,29 +94,27 @@ export function TaskDialog({
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
-              <select
+              <NativeSelect
                 id="category"
                 name="category"
-                className={selectClass}
                 defaultValue={task?.category ?? "SHOOT"}
               >
                 {Object.entries(CATEGORIES).map(([k, v]) => (
                   <option key={k} value={k}>{v.label}</option>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-2">
               <Label htmlFor="priority">Priority</Label>
-              <select
+              <NativeSelect
                 id="priority"
                 name="priority"
-                className={selectClass}
                 defaultValue={task?.priority ?? "MEDIUM"}
               >
                 {Object.entries(PRIORITIES).map(([k, v]) => (
                   <option key={k} value={k}>{v}</option>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
           </div>
 
@@ -136,16 +132,15 @@ export function TaskDialog({
             {task && (
               <div className="space-y-2">
                 <Label htmlFor="status">Status</Label>
-                <select
+                <NativeSelect
                   id="status"
                   name="status"
-                  className={selectClass}
                   defaultValue={task.status}
                 >
                   {Object.entries(STATUSES).map(([k, v]) => (
                     <option key={k} value={k}>{v}</option>
                   ))}
-                </select>
+                </NativeSelect>
               </div>
             )}
           </div>

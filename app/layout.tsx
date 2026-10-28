@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} bg-background text-foreground antialiased`}>
         {children}
         <Toaster position="top-center" />
         <PwaRegister />

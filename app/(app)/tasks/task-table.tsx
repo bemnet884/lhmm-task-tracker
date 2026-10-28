@@ -13,9 +13,8 @@ import type { PickerUser, TaskView } from "@/lib/task-types";
 import { TaskDetailSheet } from "@/components/task-detail-sheet";
 import { TaskDialog } from "../week/task-dialog";
 import { updateStatus } from "./actions";
+import { NativeSelect } from "@/components/native-select";
 
-const selectClass =
-  "h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs";
 
 export function TaskTable({
   tasks, title, subtitle, currentUserId, isAdmin, users,
@@ -120,8 +119,7 @@ export function TaskTable({
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
-        <select
-          className={selectClass}
+        <NativeSelect
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -129,9 +127,8 @@ export function TaskTable({
           {Object.entries(CATEGORIES).map(([k, v]) => (
             <option key={k} value={k}>{v.label}</option>
           ))}
-        </select>
-        <select
-          className={selectClass}
+        </NativeSelect>
+        <NativeSelect
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -140,10 +137,9 @@ export function TaskTable({
           {Object.entries(STATUSES).map(([k, v]) => (
             <option key={k} value={k}>{v}</option>
           ))}
-        </select>
+        </NativeSelect>
         {showAssigneeFilter && (
-          <select
-            className={selectClass}
+          <NativeSelect
             value={assignee}
             onChange={(e) => setAssignee(e.target.value)}
           >
@@ -151,7 +147,7 @@ export function TaskTable({
             {assigneeOptions.map(([id, name]) => (
               <option key={id} value={id}>{name}</option>
             ))}
-          </select>
+          </NativeSelect>
         )}
         <Button
           variant="outline"
@@ -212,8 +208,7 @@ export function TaskTable({
                 <TableCell>{PRIORITIES[t.priority]}</TableCell>
                 <TableCell>
                   {canAct(t) ? (
-                    <select
-                      className={selectClass}
+                    <NativeSelect
                       value={t.status}
                       disabled={pending}
                       onChange={(e) => changeStatus(t, e.target.value)}
@@ -221,7 +216,7 @@ export function TaskTable({
                       {Object.entries(STATUSES).map(([k, v]) => (
                         <option key={k} value={k}>{v}</option>
                       ))}
-                    </select>
+                    </NativeSelect>
                   ) : (
                     <Badge variant="outline">{STATUSES[t.status]}</Badge>
                   )}
@@ -262,8 +257,8 @@ export function TaskTable({
               </div>
             </button>
             {canAct(t) ? (
-              <select
-                className={`${selectClass} h-10 w-full`}
+              <NativeSelect
+                className={`h-10 w-full`}
                 value={t.status}
                 disabled={pending}
                 onChange={(e) => changeStatus(t, e.target.value)}
@@ -271,7 +266,7 @@ export function TaskTable({
                 {Object.entries(STATUSES).map(([k, v]) => (
                   <option key={k} value={k}>{v}</option>
                 ))}
-              </select>
+              </NativeSelect>
             ) : (
               <Badge variant="outline">{STATUSES[t.status]}</Badge>
             )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
@@ -14,9 +14,14 @@ import {
 export function LoginForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  // the form only works once JavaScript has loaded
+  useEffect(() => setReady(true), []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!ready) return;
     setLoading(true);
     const form = new FormData(e.currentTarget);
     const { error } = await authClient.signIn.email({
@@ -39,16 +44,28 @@ export function LoginForm() {
         <CardDescription>Sign in with your team account</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={onSubmit} className="space-y-4">
+        <form onSubmit={onSubmit} method="post" className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" required />
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="username"
+              required
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" name="password" type="password" required />
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+            />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full" disabled={loading || !ready}>
             {loading ? "Signing in..." : "Sign in"}
           </Button>
         </form>

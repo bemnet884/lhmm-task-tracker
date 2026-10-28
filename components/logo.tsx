@@ -12,7 +12,11 @@ export function Logo({
       <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
         <Play className="h-4 w-4 fill-current" />
       </span>
-      {text && <span className="font-semibold tracking-tight">Media Team Tracker</span>}
+      {text && (
+        <span className="whitespace-nowrap text-[15px] font-semibold tracking-tight">
+          Media Team Tracker
+        </span>
+      )}
     </span>
   );
 }
