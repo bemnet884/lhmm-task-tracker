@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: { default: "Media Team Tracker", template: "%s · Media Team Tracker" },
   description: "Plan, assign and track the church media team's weekly work.",
-  icons: { icon: "/pwa-icon/192", apple: "/pwa-icon/192" },
+  icons: { icon: "/pwa-icon/192", apple: "/pwa-icon/180" },
   appleWebApp: { capable: true, title: "Media Tracker", statusBarStyle: "default" },
 };
 

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
+    id: "/",
     name: "Media Team Tracker",
     short_name: "Media Tracker",
     description: "Plan, assign and track the church media team's weekly work.",

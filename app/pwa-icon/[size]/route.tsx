@@ -1,13 +1,15 @@
 import { ImageResponse } from "next/og";
 
+const SIZES: Record<string, number> = { "180": 180, "192": 192, "512": 512 };
+
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ size: string }> }
 ) {
   const { size } = await params;
-  const px = size === "512" ? 512 : 192;
+  const px = SIZES[size] ?? 192;
 
-  return new ImageResponse(
+  const image = new ImageResponse(
     (
       <div
         style={{
@@ -26,4 +28,7 @@ export async function GET(
     ),
     { width: px, height: px }
   );
+
+  image.headers.set("Cache-Control", "public, max-age=86400, s-maxage=86400");
+  return image;
 }

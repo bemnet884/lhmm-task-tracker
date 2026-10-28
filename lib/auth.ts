@@ -21,6 +21,11 @@ export const auth = betterAuth({
     },
   },
 
+  session: {
+    expiresIn: 60 * 60 * 24 * 30, // 30 days
+    updateAge: 60 * 60 * 24, // refreshed daily while they use the app
+  },
+
   user: {
     additionalFields: {
       role: { type: "string", defaultValue: "MEMBER", input: false },

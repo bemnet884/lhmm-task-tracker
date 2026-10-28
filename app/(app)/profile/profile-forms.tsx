@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { updateProfile } from "./actions";
 import { SignOutButton } from "../sign-out-button";
+import { InstallApp } from "@/components/install-app";
 function Section({
   title,
   description,
@@ -173,6 +174,12 @@ export function ProfileForms({
           <SignOutButton />
         </Section>
       </div>
+      <Section
+        title="Install app"
+        description="Add the tracker to your home screen for one-tap access."
+      >
+        <InstallApp />
+      </Section>
     </>
   );
 }
