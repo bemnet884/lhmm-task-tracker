@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { updateProfile } from "./actions";
 import { SignOutButton } from "../sign-out-button";
 import { InstallApp } from "@/components/install-app";
+import { PasswordInput } from "@/components/password-input";
 function Section({
   title,
   description,
@@ -130,10 +131,9 @@ export function ProfileForms({
         <form onSubmit={savePassword} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="currentPassword">Current password</Label>
-            <Input
+            <PasswordInput
               id="currentPassword"
               name="currentPassword"
-              type="password"
               autoComplete="current-password"
               required
             />
@@ -141,10 +141,9 @@ export function ProfileForms({
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="newPassword">New password</Label>
-              <Input
+              <PasswordInput
                 id="newPassword"
                 name="newPassword"
-                type="password"
                 autoComplete="new-password"
                 minLength={8}
                 required
@@ -152,10 +151,9 @@ export function ProfileForms({
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirm">Confirm new password</Label>
-              <Input
+              <PasswordInput
                 id="confirm"
                 name="confirm"
-                type="password"
                 autoComplete="new-password"
                 minLength={8}
                 required

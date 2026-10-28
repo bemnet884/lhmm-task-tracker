@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import {
   Card, CardContent, CardDescription, CardHeader, CardTitle,
 } from "@/components/ui/card";
-
+import { PasswordInput } from "@/components/password-input";
 export function LoginForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -57,10 +57,9 @@ export function LoginForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input
+            <PasswordInput
               id="password"
               name="password"
-              type="password"
               autoComplete="current-password"
               required
             />
